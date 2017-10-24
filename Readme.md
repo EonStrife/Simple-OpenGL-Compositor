@@ -11,7 +11,7 @@ Copy and include the [Compositor.cpp](Compositor.cpp) and [Compositor.h](Composi
 
 ### Prerequisites
 
-GPU and Graphics Drivers supporting minimum OpenGL 3.0. For development in Microsoft Windows environment, you might need [GLEW](http://glew.sourceforge.net/) or other similar libraries in order to access some of OpenGL functionalities used in the class.
+GPU and its driver which support minimum OpenGL 3.0. For development in Microsoft Windows environment, you might need [GLEW](http://glew.sourceforge.net/) or other similar libraries in order to access some of OpenGL functionalities used in the class.
 
 ### How to Use
 
@@ -106,6 +106,6 @@ Most functions will return boolean values denoting the process is succesful or n
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details
+This project is licensed under the MIT License - see the [License.txt](License.txt) file for details
 
 
