@@ -52,6 +52,20 @@ void drawCompositor()
 - ```setUniformValue*(...)``` is for setting uniform value. We use same variable qualifier suffixes as the one in ```glUniform*```.
 - ```renderPass(...)``` is for rendering the pass.
 
+#### Fragment Shader
+As composition using OpenGL generally renders a simple quad to a whole screen, the vertex shader is hardcoded inside the ```Compositor``` class. It is a simple vertex shader which outputs 2D UV coordinate to be used in sampling textures in fragment shader. Thus, for the fragment shaders you want to use, you need to define the 2D ```UV``` varying input in your fragment shaders:
+
+```
+in vec2 UV;	
+
+uniform sampler2D tex1;
+layout( location = 0 ) out vec4 oColor;
+void main()
+{
+	oColor = vec4(texture(tex1, UV).xyz, 1.0);
+}
+```
+
 #### Multiple Passes
 
 The class also support sequential multiple pass rendering (we call it as pipeline). In the following example, we are going to do a sequence of rendering passes comprising three passes. We assume each rendering pass depends on its previous rendering pass (i.e. output texture from a rendering pass is used as an input texture uniform for the next rendering pass).
