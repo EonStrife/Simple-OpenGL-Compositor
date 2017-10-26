@@ -65,6 +65,7 @@ void main()
 	oColor = vec4(texture(tex1, UV).xyz, 1.0);
 }
 ```
+The UV coordinate for sampling has the range of 0.0 to 1.0 in both dimensions.
 
 #### Multiple Passes
 
