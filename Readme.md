@@ -118,7 +118,7 @@ Most functions will return boolean values denoting the process is succesful or n
 The Compositor also provides a functionality to return error string of OpenGL shader compilation using the function ```getLastShaderError()```. 
 
 ```
-	if (!compositor->loadShader(pass, "effect.frag"));
+	if (!compositor->loadShader(pass, "effect.frag"))
 	{
 		e = compositor->getLastError();
 		std::cout << compositor->getLastShaderError() << std::endl;
