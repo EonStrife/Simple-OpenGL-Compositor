@@ -121,7 +121,8 @@ The Compositor also provides a functionality to return error string of OpenGL sh
 	if (!compositor->loadShader(pass, "effect.frag"))
 	{
 		e = compositor->getLastError();
-		std::cout << compositor->getLastShaderError() << std::endl;
+		if (e == Compositor::SHADER_COMPILE_FAIL)
+			std::cout << compositor->getLastShaderError() << std::endl;
 	}
 
 ```
