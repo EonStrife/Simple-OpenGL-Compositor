@@ -938,7 +938,7 @@ void Compositor::initializeVertexShader()
 	static const char* vertex_shader_text =
 		"#version 330 compatibility\n"
 		"in vec3 vPos;\n"
-		"out vec2 UV;\n"
+		"out vec2 in_uv;\n"
 		"void main()\n"
 		"{\n"
 		"mat4 MVP = mat4(vec4(2.0, 0.0, 0.0, 0.0),\n"
@@ -946,7 +946,7 @@ void Compositor::initializeVertexShader()
 		"                vec4(0.0, 0.0, -1.0, 0.0),\n"
 		"                vec4(-1.0, -1.0, 0.0, 1.0));\n"
 		"    gl_Position = MVP * vec4(vPos, 1.0);\n"
-		"    UV.xy = vPos.xy;"
+		"    in_uv.xy = vPos.xy;"
 		"}\n";
 
 	m_shaderVertex = glCreateShader(GL_VERTEX_SHADER);
