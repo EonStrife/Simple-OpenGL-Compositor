@@ -16,6 +16,7 @@ Compositor::Compositor()
 	setResolution(512, 512);
 	m_passes.clear();
 	m_pipelines.clear();
+	m_shaderErrorString = "";
 
 }
 
@@ -46,6 +47,15 @@ Compositor::error Compositor::getLastError()
 	return toReturn;
 }
 
+
+///
+/// \brief To return shader compilation error string.
+/// To return shader compilation error string.
+///
+std::string Compositor::getLastShaderError()
+{
+	return m_shaderErrorString;
+}
 ///
 /// \brief To create a new pass.
 /// To To create a new pass.
@@ -111,8 +121,13 @@ bool Compositor::loadShader(int passID, char* filename)
 
 		GLint Result;
 		glGetShaderiv(newShader, GL_COMPILE_STATUS, &Result);
-		if (Result == GL_FALSE) RETURN_ERR(Compositor::SHADER_COMPILE_FAIL)
-
+		if (Result == GL_FALSE)
+		{
+			GLchar msg[1024]; GLsizei length;
+			glGetShaderInfoLog(newShader, 1024, &length, msg);
+			m_shaderErrorString = std::string(msg);
+			RETURN_ERR(Compositor::SHADER_COMPILE_FAIL)
+		}
 		GLuint newProgram = glCreateProgram();
 		glAttachShader(newProgram, m_shaderVertex);
 		glAttachShader(newProgram, newShader);
