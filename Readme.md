@@ -53,16 +53,16 @@ void drawCompositor()
 - ```renderPass(...)``` is for rendering the pass.
 
 #### Fragment Shader
-As composition using OpenGL generally renders a simple quad to a whole screen, the vertex shader is hardcoded inside the ```Compositor``` class. It is a simple vertex shader which outputs 2D UV coordinate to be used in sampling textures in fragment shader. Thus, for the fragment shaders you want to use, you need to define the 2D ```UV``` varying input in your fragment shaders:
+As composition using OpenGL generally renders a simple quad to a whole screen, the vertex shader is hardcoded inside the ```Compositor``` class. It is a simple vertex shader which outputs 2D UV coordinate to be used in sampling textures in fragment shader. Thus, for the fragment shaders you want to use, you need to define the 2D ```in_uv``` varying input in your fragment shaders:
 
 ```
-in vec2 UV;	
+in vec2 in_uv;	
 
 uniform sampler2D tex1;
 layout( location = 0 ) out vec4 oColor;
 void main()
 {
-	oColor = vec4(texture(tex1, UV).xyz, 1.0);
+	oColor = vec4(texture(tex1, in_uv).xyz, 1.0);
 }
 ```
 The UV coordinate for sampling has the range of 0.0 to 1.0 in both dimensions.
@@ -107,13 +107,25 @@ Similar to pass rendering, we also have ID for each pipeline (it is created by u
 
 #### Error Handling
 
-Most functions will return boolean values denoting the process is succesful or not. If something is wrong, the functions will return ```false```. To check what is the error, we call ```getLastError()``` function. The following is an example:
+Most functions will return boolean values denoting the process is succesful or not. If something is wrong, the functions will return ```false```. To check what is the error, we call ```getLastError()``` function. 
 
 ```
 	Compositor::error e = Compositor::NONE;
 	if (!compositor->loadShader(pass, "effect.frag"))
 		e = compositor->getLastError();
 ```
+
+The ```Compositor``` class can also return error string of shader compilation error by using the function ```getLastShaderError()```
+```
+	Compositor::error e = Compositor::NONE;
+	if (!compositor->loadShader(pass, "effect.frag"))
+	{
+		e = compositor->getLastError();
+		if( e == Compositor::SHADER_COMPILE_FAIL)
+			std::cout << compositor->getLastShaderError() << std::endl;
+	}
+```
+
 
 ## Author
 
