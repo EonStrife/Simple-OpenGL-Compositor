@@ -107,12 +107,23 @@ Similar to pass rendering, we also have ID for each pipeline (it is created by u
 
 #### Error Handling
 
-Most functions will return boolean values denoting the process is succesful or not. If something is wrong, the functions will return ```false```. To check what is the error, we call ```getLastError()``` function. The following is an example:
+Most functions will return boolean values denoting the process is succesful or not. If something is wrong, the functions will return ```false```. To check what is the error, we call the ```getLastError()``` function.
 
 ```
 	Compositor::error e = Compositor::NONE;
 	if (!compositor->loadShader(pass, "effect.frag"))
 		e = compositor->getLastError();
+```
+
+The Compositor also provides a functionality to return error string of OpenGL shader compilation using the function ```getLastShaderError()```. 
+
+```
+	if (!compositor->loadShader(pass, "effect.frag"));
+	{
+		e = compositor->getLastError();
+		std::cout << compositor->getLastShaderError() << std::endl;
+	}
+
 ```
 
 ## Author
