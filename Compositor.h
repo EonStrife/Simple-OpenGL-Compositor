@@ -54,6 +54,7 @@ private:
 		GLboolean depthMask;
 		GLfloat clearColor[4];
 		GLint viewport[4];
+		GLboolean alphaBlend;
 	} m_state;
 
 	//global variables

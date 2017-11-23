@@ -1012,6 +1012,7 @@ void Compositor::pushState()
 	glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &m_state.bufferVertexArray);
 	glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &m_state.bufferArrayBuffer);
 
+	glGetBooleanv(GL_BLEND, &m_state.alphaBlend);
 }
 
 ///
@@ -1037,6 +1038,8 @@ void Compositor::popState()
 
 	glBindVertexArray(m_state.bufferVertexArray);					
 	glBindBuffer(GL_ARRAY_BUFFER, m_state.bufferArrayBuffer);		
+
+	if (m_state.alphaBlend == GL_TRUE) glEnable(GL_BLEND);
 }
 
 ///
@@ -1057,7 +1060,8 @@ void Compositor::renderPassInternal(std::map<int, pass>::iterator p)
 
 	glDrawBuffers(p->second.texOutputs.size(), p->second.texOutputsChannels);
 	glViewport(0, 0, m_width, m_height);
-	glClearColor(0.0, 0.0, 1.0, 1.0);
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glDisable(GL_BLEND);
 	glUseProgram(p->second.shaderProgram);
 	glBindVertexArray(m_vertexArray);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
